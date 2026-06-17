@@ -1,0 +1,651 @@
+/*
+  style.css
+  All visual styling lives here. The goal is to match the reference screenshots:
+  clean, minimal, light gray background, white cards, and a clean sans-serif font.
+  We use CSS custom properties so everything is easy to tweak in one place.
+*/
+
+/* === Design Tokens === */
+:root {
+  --bg: #f5f5f4;
+  --surface: #ffffff;
+  --surface-hover: #f0efee;
+  --border: #e5e4e2;
+  --border-focus: #a8a29e;
+  --text-primary: #1c1917;
+  --text-secondary: #78716c;
+  --text-muted: #a8a29e;
+  --accent: #1c1917;
+  --accent-hover: #292524;
+  --tag-bg: #f0efee;
+  --tag-text: #57534e;
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --warning-bg: #fffbeb;
+  --warning: #d97706;
+  --sidebar-width: 64px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --transition: 0.18s ease;
+}
+
+/* === Reset and Base === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden; /* sidebar does not cause scroll */
+}
+
+/* === Main Content === */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* === Top Bar === */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  background-color: var(--bg);
+  z-index: 50;
+  border-bottom: 1px solid transparent; /* keeps layout stable */
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+/* Circular avatar placeholder matching the reference */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c4c0ba 0%, #a8a29e 100%);
+  flex-shrink: 0;
+}
+
+.pro-btn {
+  height: 32px;
+  padding: 0 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  font-family: inherit;
+}
+
+.pro-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.pro-btn:active {
+  transform: translateY(0);
+}
+
+/* === Hero Section === */
+/*
+  This is the centered content area. It uses flexbox to push things to the middle
+  of the remaining vertical space, exactly like the reference screenshot.
+*/
+.hero-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 20px;
+  gap: 24px;
+  min-height: calc(100vh - 130px);
+}
+
+.hero-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 440px;
+  line-height: 1.7;
+  margin-top: -8px;
+}
+
+/* === Input Card === */
+/*
+  The main white card that holds the email and URL fields.
+  It looks like the rounded input box in the reference screenshots.
+*/
+.input-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 20px 14px;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow var(--transition);
+}
+
+.input-card:focus-within {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-focus);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* The actual text input fields inside the card */
+.field-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  padding: 6px 0;
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--transition);
+}
+
+.field-input:focus {
+  border-color: var(--border-focus);
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Divider between the two fields */
+.field-group + .field-group {
+  padding-top: 4px;
+}
+
+/* === Card Footer (submit button) === */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* aligns the submit button to the right */
+  padding-top: 8px;
+}
+
+/* External capability tags that sit directly below the card */
+.external-tags {
+  display: flex;
+  justify-content: space-between; /* distributes tags evenly to span the card's width */
+  width: 100%;
+  max-width: 560px;
+  margin-top: -12px; /* pulls tags closer to the card */
+  gap: 10px;
+}
+
+/* Small pill tags that label the workflow steps, same as reference toolbar */
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+  user-select: none;
+}
+
+/* Larger styling for the external capability tags */
+.external-tags .tag {
+  flex: 1; /* stretches tags to occupy equal width */
+  justify-content: center; /* centers the label and icon within the tag */
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border); /* slightly more defined since they are outside */
+}
+
+/* The dark circular arrow button, matches the reference exactly */
+.submit-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.submit-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.22);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* === Status Area === */
+/*
+  Inline messages (validation errors, success notices) that appear
+  below the input card without a page reload.
+*/
+.status-area {
+  width: 100%;
+  max-width: 560px;
+  min-height: 28px;
+}
+
+.status-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: fadeSlideIn 0.2s ease;
+}
+
+.status-message.error {
+  background: var(--error-bg);
+  color: var(--error);
+  border: 1px solid #fecaca;
+}
+
+.status-message.warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid #fde68a;
+}
+
+/* === Result Section === */
+/*
+  Slides in after the API call succeeds, replacing the hero section.
+  Shows session ID, URL, email, and processing status.
+*/
+.result-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 20px;
+  min-height: calc(100vh - 130px);
+  animation: fadeSlideIn 0.3s ease;
+}
+
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: var(--shadow-md);
+}
+
+.result-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Green circle with a checkmark, appears at the top of the result card */
+.result-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--success-bg);
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.result-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.result-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.result-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.result-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 90px;
+  padding-top: 2px;
+}
+
+.result-value {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+/* Monospace font for the session ID so it looks like a proper ID */
+.result-value.mono {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.url-truncate {
+  word-break: break-all;
+}
+
+/* Green badge for the processing status */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-pill.processing {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+/* Spinning dot indicator for the processing status */
+.status-pill.processing::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ca8a04;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* Static green badge for completed status */
+.status-pill.completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-pill.completed::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+.result-footer-note {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+/* Button that resets the form so the user can submit another article */
+.analyze-again-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.analyze-again-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* === Footer === */
+.main-footer {
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.main-footer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* === Loading Overlay === */
+/*
+  Full-screen dimmed overlay with a spinner, shown while the API call is in progress.
+  This prevents the user from submitting twice.
+*/
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 245, 244, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 200;
+}
+
+.loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* === Animations === */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Responsive: Tablet (max 900px) === */
+@media (max-width: 900px) {
+  .tag:last-child {
+    display: none; /* hide the last tag to save space on narrower screens */
+  }
+}
+
+/* === Responsive: Mobile (max 640px) === */
+@media (max-width: 640px) {
+  .topbar {
+    padding: 10px 16px;
+  }
+
+  .hero-section {
+    padding: 28px 16px 16px;
+    justify-content: flex-start;
+    padding-top: 60px;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.88rem;
+  }
+
+  .input-card {
+    padding: 16px 16px 12px;
+    border-radius: var(--radius-md);
+  }
+
+  .external-tags {
+    flex-wrap: wrap; /* wraps tags if space is too narrow */
+    gap: 8px;
+  }
+
+  .external-tags .tag {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    display: flex !important; /* ensures all three tags remain visible on mobile */
+  }
+
+  .result-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .result-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .result-label {
+    min-width: unset;
+  }
+}
+
+/* === Responsive: Very small (max 380px) === */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .pro-btn {
+    display: none; /* save space on very small screens */
+  }
+}

@@ -1,0 +1,46 @@
+# docker-compose.yml
+#
+# This file spins up a local n8n instance using Docker.
+# Run it with:   docker compose up -d
+# Stop it with:  docker compose down
+#
+# n8n will be available at http://localhost:5678
+
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n_article_ai
+    restart: unless-stopped
+
+    ports:
+      # Map host port 5678 to the container's 5678
+      - "5678:5678"
+
+    environment:
+      # These let n8n build correct webhook URLs that your FastAPI can call
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+
+      # Timezone for timestamps in Google Sheets
+      - GENERIC_TIMEZONE=Asia/Dhaka
+
+      # Turn off telemetry
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+
+      # Secrets loaded from the host's .env file
+      - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GOOGLE_SHEET_ID=${GOOGLE_SHEET_ID}
+
+    volumes:
+      # Persist your workflows and credentials across container restarts
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+    driver: local
