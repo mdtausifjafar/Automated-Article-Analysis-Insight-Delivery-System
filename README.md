@@ -25,7 +25,7 @@ In today's fast-paced digital world, consuming long-form content efficiently is 
 
 Click below for the short demonstration on how the frontend UI, backend, Google Sheets log, and Gmail notification work together seamlessly:
 
-[Download Demo Video of Automated Article Analysis & Insight Delivery System.mp4](readme-media/Demo%20Video%20of%20Automated%20Article%20Analysis%20&%20Insight%20Delivery%20System.mp4?raw=true)
+[Download Demo Video of Automated Article Analysis & Insight Delivery System.mp4](https://raw.githubusercontent.com/mdtausifjafar/Automated-Article-Analysis-Insight-Delivery-System/main/readme-media/Demo%20Video%20of%20Automated%20Article%20Analysis%20%26%20Insight%20Delivery%20System.mp4)
 
 ---
 
@@ -105,7 +105,7 @@ All completed analysis runs are appended in real-time to a centralized spreadshe
 
 > [!Note]
 > **Pre-formatted Spreadsheet Template:**
-> I have attached **[Automated Article Analysis & Insight Delivery Sheet.xlsx](Automated%20Article%20Analysis%20&%20Insight%20Delivery%20Sheet.xlsx?raw=true)** directly to the root of this repository! You can upload this file to your Google Drive and convert it to a Google Sheet to skip manually formatting your columns.
+> I have attached **[Automated Article Analysis & Insight Delivery Sheet.xlsx](https://raw.githubusercontent.com/mdtausifjafar/Automated-Article-Analysis-Insight-Delivery-System/main/Automated%20Article%20Analysis%20%26%20Insight%20Delivery%20Sheet.xlsx)** directly to the root of this repository! You can upload this file to your Google Drive and convert it to a Google Sheet to skip manually formatting your columns.
 
 ---
 
