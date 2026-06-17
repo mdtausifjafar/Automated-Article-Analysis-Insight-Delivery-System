@@ -16,7 +16,7 @@ In today's fast-paced digital world, consuming long-form content efficiently is 
    - **Scrapes** the article using Firecrawl, converting raw web pages into clean markdown.
    - **Summarizes** the markdown into a concise 3-5 sentence paragraph using Groq AI (`llama-3.3-70b-versatile`).
    - **Extracts** 3-5 actionable, high-value key insights using Groq AI.
-   - **Logs** the session, URL, summary, insights, and timestamp to a Google Sheet.
+   - **Logs** the session, article URL, summary, insights, and timestamp to Google Sheets.
    - **Dispatches** a styled responsive HTML email to the user.
 
 ---
@@ -25,7 +25,7 @@ In today's fast-paced digital world, consuming long-form content efficiently is 
 
 Click below for the short demonstration on how the frontend UI, backend, Google Sheets log, and Gmail notification work together seamlessly:
 
-[Download Demo Video of Automated Article Analysis & Insight Delivery System](readme-media/Demo%20Video%20of%20Automated%20Article%20Analysis%20&%20Insight%20Delivery%20System.mp4)
+[Download Demo Video of Automated Article Analysis & Insight Delivery System.mp4](readme-media/Demo%20Video%20of%20Automated%20Article%20Analysis%20&%20Insight%20Delivery%20System.mp4?raw=true)
 
 ---
 
@@ -35,17 +35,20 @@ The frontend is built entirely using vanilla web technologies (**HTML5, Vanilla 
 
 ### Desktop View
 
-A clean and spacious desktop interface optimized for seamless article submission and AI-powered content analysis.
+A clean and spacious desktop interface optimized for seamless article submission and AI-powered content analysis:
+
 ![Article AI - Desktop View](readme-media/Article%20AI%20(Desktop%20View).png)
 
 ### Mobile View
 
-A responsive mobile-friendly interface designed for smooth article input and quick AI insights on smaller screens.
+A responsive mobile-friendly interface designed for smooth article input and quick AI insights on smaller screens:
+
 ![Article AI - Mobile View](readme-media/Article%20AI%20(Mobile%20View).png)
 
 ### Analysis Completed View
 
 When the user submits email address and article URL, a full-screen loading spinner overlay handles the API wait state. Once FastAPI confirms the workflow has successfully accepted the request, the interface transitions to a success card displaying the unique session ID, article URL, email address and dynamic progress indicators:
+
 ![Article AI - Analysis Completed View](readme-media/Article%20AI%20(Analysis%20Completed%20View).png)
 
 ### Frontend Highlights
@@ -75,7 +78,7 @@ The visual automation server orchestrates the execution flow. It reads API secre
 
 * **Webhook Trigger:** Exposes a POST webhook endpoint `/webhook/article-analysis` to receive the payload from FastAPI.
 * **Firecrawl Scrape:** Integrates with Firecrawl API to extract full article text from the web, cleaning up HTML boilerplate into readable markdown.
-* **Groq Summarize:** Invokes the Llama 3.3 70B model via Groq's high-performance endpoint to output a 3-5 sentence summary.
+* **Groq Summarize:** Invokes the Llama 3.3 70B Versatile model via Groq's high-performance endpoint to output a 3-5 sentence summary.
 * **Groq Insights:** Invokes Groq to generate a clean, numbered list of actionable takeaways from the parsed markdown.
 * **Merge Data:** Combines the scraper metadata, AI outputs, and user session values.
 * **Google Sheets:** Connects via OAuth2 to append a new row of log details into a target sheet.
@@ -102,7 +105,7 @@ All completed analysis runs are appended in real-time to a centralized spreadshe
 
 > [!Note]
 > **Pre-formatted Spreadsheet Template:**
-> I have attached **[Automated Article Analysis & Insight Delivery Sheet.xlsx](Automated%20Article%20Analysis%20&%20Insight%20Delivery%20Sheet.xlsx)** directly to the root of this repository! You can upload this file to your Google Drive and convert it to a Google Sheet to skip manually formatting your columns.
+> I have attached **[Automated Article Analysis & Insight Delivery Sheet.xlsx](Automated%20Article%20Analysis%20&%20Insight%20Delivery%20Sheet.xlsx?raw=true)** directly to the root of this repository! You can upload this file to your Google Drive and convert it to a Google Sheet to skip manually formatting your columns.
 
 ---
 
